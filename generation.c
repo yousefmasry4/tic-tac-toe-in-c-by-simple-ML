@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void ran(int arr[],int *mini){
+void ran(int arr[]){
     int x;
     while(1){
         x=rand()%9;
         if(arr[x] ==0){
             arr[x]=1;
-            *mini=x;
          //   printf("%d",x);
             break;
         }
@@ -82,18 +81,25 @@ long int findSize(char file_name[])
 }
 
 
-
-void computerMove(int board[9],int *mini) {
+void computerMove(int board[9]) {
    // puts("am here");
     int i;
     FILE *f;
     int list[9]={0};
     char name[20]="new.txt";
     f=fopen("new.txt","r");
+    FILE *f2=fopen("neg.txt","r");
     int main_space=b(board);
-    int hena=-1,adad=0;int flag;
+    int hena=-1,adad=0;int flag=0;
 
     long int res = findSize(name)/10;
+   // printf("l=%ld\n\n\n\n\n",res);
+
+
+
+    ///////////////////////////////////////////////////////////////*neg
+
+    res = findSize("neg.txt")/10;
    // printf("l=%ld\n\n\n\n\n",res);
 
     for(i=res;i>=0;i--)
@@ -131,7 +137,69 @@ void computerMove(int board[9],int *mini) {
 
             }
 
+                if(flag == 1){
+         //   puts("Ttttttt");
+            if(adad == 1){
+                if(board[hena] == 0){
+                board[hena]=1;
+                break;
+                }
+            }
         }
+
+
+
+            }
+
+            }
+
+   if(flag == 0){
+    int rer=findSize("neg.txt")/10;
+    for(i=rer;i>=0;i--)
+    {
+      //  memset(list, 0,9);
+     //   printf("%d\n",i);
+        hena=-1;
+        flag=0;
+        for(int g=0;g<9;g++)
+            fscanf(f2,"%1d",&list[g]);
+            adad=0;
+            for(int f=0;f<9;f++){
+                if(list[f]== board[f])
+                    continue;
+                else{
+                    adad++;
+                    }
+                if(list[f]==2){
+                    hena=f;
+                    }
+            }
+      //      printf("%d",adad);
+            if(adad==2)
+                flag=1;
+            else
+                flag=0;
+
+    if(flag == 1){
+     //       puts("i am in negative");
+
+                    puts("");
+        for(int ir=0;ir<9;ir++){
+            printf("%d",list[ir]);
+        }puts("");
+
+
+
+            if(adad == 2){
+                if(board[hena] == 0){
+                board[hena]=1;
+                break;
+                }
+            }
+        }
+        }
+
+    }
        // puts("");
       //  for(int ir=0;ir<9;ir++){
         //    printf("%d",list[ir]);
@@ -140,33 +208,19 @@ void computerMove(int board[9],int *mini) {
      //   printf("%d>>%d/n",i,flag);
     //************************************
  //   draw(board);
-    if(flag == 1){
-         //   puts("Ttttttt");
-            if(adad == 1){
-                if(board[hena] == 0){
-                board[hena]=1;*mini=hena;
-                break;
-                }
-            }
-        }
 
 
-
-    }
     if(flag == 0){
-     //   printf("R");
-        ran(board,mini);
+        printf("R");
+        ran(board);
     }
     fclose(f);
-
-
-
-
+    fclose(f2);
 }
 
 
 
-void playerMove(int board[9],int *maxx) {
+void playerMove(int board[9]) {
 int move ;
     do {
     start:
@@ -182,7 +236,6 @@ int move ;
     } while (move > 8 && move < 0 );
         board[move-1] = 2;
         move--;
-        *maxx=move;
         draw(board);
 
 }
@@ -197,10 +250,10 @@ int main() {
     unsigned turn;
     for(turn = 0; turn < 9 && win(board) == 0; ++turn) {
         if((turn+player) % 2 == 0)
-            computerMove(board,&mini);
+            computerMove(board);
         else {
             draw(board);
-            playerMove(board,&maxx);
+            playerMove(board);
          //   printf("\n%d /////////////////////// %d\n",mini,maxx);
         }
     }
@@ -214,26 +267,14 @@ int main() {
             break;
         case 2:
             printf("You win. Inconceivable!\n");
-            FILE *f2=fopen("new.txt","a");
-          //  printf("G");
-            int t=board[mini];
-            board[mini]=0;
-            board[maxx]=t;
-                       printf("%d  %d",board[mini],board[maxx]);
-            for(int w=9;w>=0;w--)
-            {
-       //         printf("G");
-                if(w == mini || w == maxx)
-                    break;
-                board[w]=0;
-            }
+            FILE *f2=fopen("neg.txt","a");
             for(int s=0;s<9;s++){
             //    printf("%d",board[s]);
                 fprintf(f2,"%d",board[s]);
                 }
                 fprintf(f2,"\n");
                 fclose(f2);
-         //       printf("but i Ml\n :p\n");
+                printf("but i Ml\n :p\n");
 
             break;
     }
