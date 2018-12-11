@@ -36,7 +36,7 @@ int b(int arr[]){
 }
 
 void draw(int b[9]) {
-	system("clear");
+	//system("clear");
 	puts("");
     printf(" %c | %c | %c\n",gridChar(b[6]),gridChar(b[7]),gridChar(b[8]));
     printf("---+---+---\n");
@@ -112,8 +112,6 @@ void computerMove(int board[9]) {
             fscanf(f,"%1d",&list[g]);
 
 
-       //     printf("data:%d\n",list[0]);//system("clear");
-        if(main_space==1+b(list)){
 
       //      printf("%d == %d\n",main_space,b(list));/**/
             //yla bena wla 2yh :D
@@ -123,38 +121,35 @@ void computerMove(int board[9]) {
                //     printf("%d == %d\n",list[f],board[f]);
                     continue;
                 else{
-         //        printf("%d != %d\n",list[f],board[f]);
-                    if(list[f]==1){
-                        adad++;
-                        if(adad=1)
-                            flag=1;
-                        else
-                            flag=0;
-                        hena=f;
-                        }
+                    adad++;
+                    if(list[f]==1)
+                                            hena=f;
                     }
-
-
             }
+                if(adad==1)
+                    flag=1;
+                else{
+                    flag=0;
+                     }
+
 
                 if(flag == 1){
          //   puts("Ttttttt");
             if(adad == 1){
                 if(board[hena] == 0){
+                puts("from +");printf("%d\n",i);
+                for(int iff=0;iff<9;iff++)//***************************************************************************************
+                    printf("%d",list[iff]);puts("");
                 board[hena]=1;
                 break;
                 }
             }
         }
-
-
-
-            }
-
-            }
+    }
 
    if(flag == 0){
     int rer=findSize("neg.txt")/10;
+    printf("%d",rer);
     for(i=rer;i>=0;i--)
     {
       //  memset(list, 0,9);
@@ -173,30 +168,22 @@ void computerMove(int board[9]) {
                 if(list[f]==2){
                     hena=f;
                     }
-            }
-      //      printf("%d",adad);
+
+           printf("%d",adad);
             if(adad==2)
                 flag=1;
             else
                 flag=0;
 
-    if(flag == 1){
-     //       puts("i am in negative");
-
-                    puts("");
-        for(int ir=0;ir<9;ir++){
-            printf("%d",list[ir]);
-        }puts("");
-
-
-
+        }
             if(adad == 2){
                 if(board[hena] == 0){
+                printf("from ned");
                 board[hena]=1;
                 break;
                 }
             }
-        }
+
         }
 
     }
@@ -269,7 +256,6 @@ int main() {
             printf("You win. Inconceivable!\n");
             FILE *f2=fopen("neg.txt","a");
             for(int s=0;s<9;s++){
-            //    printf("%d",board[s]);
                 fprintf(f2,"%d",board[s]);
                 }
                 fprintf(f2,"\n");
