@@ -36,7 +36,7 @@ int b(int arr[]){
 }
 
 void draw(int b[9]) {
-	//system("clear");
+	system("clear");
 	puts("");
     printf(" %c | %c | %c\n",gridChar(b[6]),gridChar(b[7]),gridChar(b[8]));
     printf("---+---+---\n");
@@ -137,9 +137,9 @@ void computerMove(int board[9]) {
          //   puts("Ttttttt");
             if(adad == 1){
                 if(board[hena] == 0){
-                puts("from +");printf("%d\n",i);
-                for(int iff=0;iff<9;iff++)//***************************************************************************************
-                    printf("%d",list[iff]);puts("");
+        //       puts("from +");printf("%d\n",i);
+      //          for(int iff=0;iff<9;iff++)//***************************************************************************************
+    //                printf("%d",list[iff]);puts("");
                 board[hena]=1;
                 break;
                 }
@@ -149,7 +149,7 @@ void computerMove(int board[9]) {
 
    if(flag == 0){
     int rer=findSize("neg.txt")/10;
-    printf("%d",rer);
+  //  printf("%d",rer);
     for(i=rer;i>=0;i--)
     {
       //  memset(list, 0,9);
@@ -169,7 +169,7 @@ void computerMove(int board[9]) {
                     hena=f;
                     }
 
-           printf("%d",adad);
+      //     printf("%d",adad);
             if(adad==2)
                 flag=1;
             else
@@ -178,7 +178,12 @@ void computerMove(int board[9]) {
         }
             if(adad == 2){
                 if(board[hena] == 0){
-                printf("from ned");
+         //       printf("from ned");
+
+
+             //          puts("from -");printf("%d\n",i);
+        //**        for(int iff=0;iff<9;iff++)//***************************************************************************************
+      // **             printf("%d",list[iff]);puts("");
                 board[hena]=1;
                 break;
                 }
@@ -198,7 +203,7 @@ void computerMove(int board[9]) {
 
 
     if(flag == 0){
-        printf("R");
+       // printf("R");
         ran(board);
     }
     fclose(f);
@@ -264,4 +269,5 @@ int main() {
 
             break;
     }
+    printf("\n\t\t ©yousef(jogo)\n");
 }
