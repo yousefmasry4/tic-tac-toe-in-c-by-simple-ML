@@ -26,14 +26,6 @@ char gridChar(int i) {
     }
 }
 
-int b(int arr[]){
-    int b=0;
-    for(int k=0;k<9;k++){
-        if(arr[k]==0)
-            b++;
-    }
-    return b;
-}
 
 void draw(int b[9]) {
 	system("clear");
