@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1544638987 source:/home/yousef/Desktop/tic-tac-toe-in-c-by-simple-ML-master/minimax/main.c
+	<stdio.h>
+	<stdlib.h>
+
