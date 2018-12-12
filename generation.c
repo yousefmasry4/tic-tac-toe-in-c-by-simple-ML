@@ -1,9 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 void ran(int arr[]){
     int x;
     while(1){
+           /* Intializes random number generator */
+        time_t t;
+        srand((unsigned) time(&t));
         x=rand()%9;
         if(arr[x] ==0){
             arr[x]=1;
@@ -81,7 +85,6 @@ void computerMove(int board[9]) {
     char name[20]="new.txt";
     f=fopen("new.txt","r");
     FILE *f2=fopen("neg.txt","r");
-    int main_space=b(board);
     int hena=-1,adad=0;int flag=0;
 
     long int res = findSize(name)/10;
@@ -129,9 +132,9 @@ void computerMove(int board[9]) {
          //   puts("Ttttttt");
             if(adad == 1){
                 if(board[hena] == 0){
-        //       puts("from +");printf("%d\n",i);
-      //          for(int iff=0;iff<9;iff++)//***************************************************************************************
-    //                printf("%d",list[iff]);puts("");
+            //   puts("from +");printf("%d\n",i);
+              //  for(int iff=0;iff<9;iff++)//***************************************************************************************
+                //    printf("%d",list[iff]);puts("");
                 board[hena]=1;
                 break;
                 }
@@ -173,9 +176,9 @@ void computerMove(int board[9]) {
          //       printf("from ned");
 
 
-             //          puts("from -");printf("%d\n",i);
-        //**        for(int iff=0;iff<9;iff++)//***************************************************************************************
-      // **             printf("%d",list[iff]);puts("");
+    //                   puts("from -");printf("%d\n",i);
+      //         for(int iff=0;iff<9;iff++)//***************************************************************************************
+        //           printf("%d",list[iff]);puts("");
                 board[hena]=1;
                 break;
                 }
@@ -195,7 +198,7 @@ void computerMove(int board[9]) {
 
 
     if(flag == 0){
-       // printf("R");
+   //     printf("R");
         ran(board);
     }
     fclose(f);
