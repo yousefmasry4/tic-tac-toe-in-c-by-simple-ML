@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 
+#ifdef __linux
+	#define os 0
+#endif
+
 void ran(int arr[]){
     int x;
     while(1){
@@ -32,7 +36,10 @@ char gridChar(int i) {
 
 
 void draw(int b[9]) {
+     if (os == 0)
 	system("clear");
+	else
+        system("cls");
 	puts("");
     printf(" %c | %c | %c\n",gridChar(b[6]),gridChar(b[7]),gridChar(b[8]));
     printf("---+---+---\n");
@@ -94,7 +101,7 @@ void computerMove(int board[9]) {
 
     ///////////////////////////////////////////////////////////////*neg
 
-    res = findSize("neg.txt")/10;
+
    // printf("l=%ld\n\n\n\n\n",res);
 
     for(i=res;i>=0;i--)
@@ -251,6 +258,12 @@ int main() {
         case 1:
             draw(board);
             printf("You lose.\n");
+            FILE *fs=fopen("new.txt","a");
+                for(int s=0;s<9;s++){
+                    fprintf(fs,"%d",board[s]);
+                    }
+                    fprintf(fs,"\n");
+                    printf("data ++\n");fclose(fs);
             break;
         case 2:
             printf("You win. Inconceivable!\n");
