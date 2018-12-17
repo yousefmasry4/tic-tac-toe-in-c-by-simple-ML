@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include<conio.h>
 #include <stdlib.h>
 #include <time.h>
 #include<string.h>
@@ -76,12 +77,15 @@ long int findSize(char file_name[])
         return -1;
     }
 
-    fseek(fp, 0L, SEEK_END);
 
-    // calculating the size of the file
-    long int res = ftell(fp);
+    long int res = 0;int c=0;
+    while(1){
+        if((c=fgetc(fp)) == EOF)
+            break;
+        if(c == '\n')
+            res++;
+    }
 
-    // closing the file
     fclose(fp);
 
     return res;
@@ -98,7 +102,7 @@ void computerMove(int board[9]) {
     FILE *f2=fopen("neg.txt","r");
     int hena=-1,adad=0;int flag=0;
 
-    long int res = findSize(name)/10;
+    long int res = findSize(name);
    // printf("l=%ld\n\n\n\n\n",res);
 
 
@@ -154,7 +158,7 @@ void computerMove(int board[9]) {
     }
 
    if(flag == 0){
-    int rer=findSize("neg.txt")/10;
+    int rer=findSize("neg.txt");
   //  printf("%d",rer);
     for(i=rer;i>=0;i--)
     {
@@ -341,4 +345,5 @@ int main() {
             break;
     }
     printf("\n\t\t ©yousef and yahya(yojogo)\n");
+    getch();
 }
