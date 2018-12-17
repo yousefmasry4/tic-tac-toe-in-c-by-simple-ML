@@ -8,10 +8,7 @@ tic tac toe in c by simple ML
 
 
 # run *generation.c*
-
-select one to play first or toe to play second
-
-select positions it likely right numbers in your keyboard
+ 
 
 any comment please send email to :yuosefmasry4@gmail.com
 
