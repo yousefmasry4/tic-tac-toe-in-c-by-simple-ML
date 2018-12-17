@@ -1,11 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-#ifdef __linux
-	#define os 0
-#endif
-
+#include<string.h>
 void ran(int arr[]){
     int x;
     while(1){
@@ -36,16 +32,24 @@ char gridChar(int i) {
 
 
 void draw(int b[9]) {
-     if (os == 0)
-	system("clear");
-	else
         system("cls");
-	puts("");
-    printf(" %c | %c | %c\n",gridChar(b[6]),gridChar(b[7]),gridChar(b[8]));
-    printf("---+---+---\n");
-    printf(" %c | %c | %c\n",gridChar(b[3]),gridChar(b[4]),gridChar(b[5]));
-    printf("---+---+---\n");
-    printf(" %c | %c | %c\n",gridChar(b[0]),gridChar(b[1]),gridChar(b[2]));
+        int counter = 1;
+      	puts("");
+      	for(int i = 0;i < 9;i++)
+        {
+          printf(" %c ",gridChar(b[i]));
+          if(counter < 3)
+          {
+            printf("| ");
+          }
+          else
+          {
+            printf("\n");
+            printf("---+----+---\n");
+            counter = 0;
+          }
+          counter ++;
+        }
 }
 
 int win(const int board[9]) {
@@ -214,58 +218,113 @@ void computerMove(int board[9]) {
 
 
 
-void playerMove(int board[9]) {
-int move ;
-    do {
+void playerMove(int board[9],char player_turn[]) {
+  int move ;
+  do
+  {
     start:
-        printf("\nInput move ([1..9]): ");
+        printf("\n%s,Input move ([1..9]): ",player_turn);
         scanf("%d", &move);
-       // printf("you enter %d\n",move);
-        if(board[move-1] != 0) {
+        if(board[move-1] != 0)
+        {
             printf("Its Already Occupied !");
-            printf("%d",board[move-1]);
+            //printf("%d",board[move-1]);
             goto start;
         }
         printf("\n");
-    } while (move > 8 && move < 0 );
-        board[move-1] = 2;
-        move--;
-        draw(board);
-
+  } while (move > 9 || move < 0 );
+  //count++;
+  if(strcmp(player_turn,"P1") == 0)
+  {
+    board[move-1] = 2;
+  }
+  else if(strcmp(player_turn,"P2") == 0)
+  {
+    board[move-1] = 1;
+  }
 }
-
-int main() {
-    int board[9] = {0};
-    printf("Computer: O, You: X\nPlay (1)st or (2)nd? ");
-    int player=0;
-    scanf("%d",&player);
-    printf("\n");
-    int mini=0,maxx=0;
-    unsigned turn;
-    for(turn = 0; turn < 9 && win(board) == 0; ++turn) {
-        if((turn+player) % 2 == 0)
-            computerMove(board);
-        else {
-            draw(board);
-            playerMove(board);
-         //   printf("\n%d /////////////////////// %d\n",mini,maxx);
+void turn (int player,int board[],char mode[])//Checks whose turn to play
+{
+  int turn;//door meen yel3ab
+  char player_turn[3];//ya player 1 ya player 2.
+  for(turn = 0; turn < 9 && win(board) == 0; turn++)
+  {
+      if((turn+player) % 2 == 0)//player here either represents Player 1 or just a player against the computer
+      {
+        if(strcmp(mode,"PVP") == 0 || strcmp(mode,"pvp") == 0 || strcmp(mode,"1") == 0)
+        {
+          draw(board);
+          strcpy(player_turn,"P2");
+          playerMove(board,player_turn);
         }
+        else if(strcmp(mode,"PVC") == 0 || strcmp(mode,"pvc") == 0 || strcmp(mode,"2") == 0)
+        {
+            computerMove(board);
+        }
+      }
+      else
+      {
+          draw(board);
+          strcpy(player_turn,"P1");
+          playerMove(board,player_turn);
+      }
+  }
+}
+int main() {
+  char mode[4];
+  int board[9] = {0},player = 0;
+  printf("Enter your mode:\n");
+  printf("      1.PVP     \n");
+  printf("      2.PVC     \n");
+  scanf("%s",mode);
+  printf("\n");
+  do
+  {
+    if(strcmp(mode,"PVP") == 0 || strcmp(mode,"pvp") == 0 || strcmp(mode,"1") == 0)
+    {
+      printf("Player 1: X, Player 2: O\nPlayer 1 plays (1)st or (2)nd? ");
+      scanf("%d",&player);//player represents here player 1
+      printf("\n");
+      turn(player,board,mode);
+      break;
     }
+    else if(strcmp(mode,"PVC") == 0 || strcmp(mode,"pvc") == 0 || strcmp(mode,"2") == 0)
+    {
+      printf("Computer: O, You: X\nPlay (1)st or (2)nd? ");
+      scanf("%d",&player);//beyda55al enta 3ayez tebda2 el awal walla el computer, player represents here the player.
+      printf("\n");
+      turn(player,board,mode);
+      break;
+      }
+    }while(strcmp(mode,"PVP") != 0 && strcmp(mode,"pvp") != 0 && strcmp(mode,"PVC") != 0 && strcmp(mode,"pvc") != 0 && strcmp(mode,"1") != 0 && strcmp(mode,"2") != 0);
+    draw(board);
+    draw(board);
     switch(win(board)) {
         case 0:
-            printf("A draw. How droll.\n");
+            printf("It's draw. How droll.\n");
             break;
         case 1:
             draw(board);
-            printf("You lose.\n");
-            FILE *fs=fopen("new.txt","a");
-                for(int s=0;s<9;s++){
-                    fprintf(fs,"%d",board[s]);
-                    }
+            if(strcmp(mode,"PVC") == 0 || strcmp(mode,"pvc") == 0 || strcmp(mode,"2") == 0)
+            {
+              printf("You lose.\n");
+              FILE *fs=fopen("new.txt","a");
+              for(int s=0;s<9;s++)
+              {
+                fprintf(fs,"%d",board[s]);
+              }
                     fprintf(fs,"\n");
-                    printf("data ++\n");fclose(fs);
+                    printf("data ++\n");
+                    fclose(fs);
+            }
+            else if(strcmp(mode,"PVP") == 0 || strcmp(mode,"pvp") == 0 || strcmp(mode,"1") == 0)
+            {
+              printf("Player 2 wins.\n");
+            }
             break;
         case 2:
+        if(strcmp(mode,"PVC") == 0 || strcmp(mode,"pvc") == 0 || strcmp(mode,"2") == 0)
+        {
             printf("You win. Inconceivable!\n");
             FILE *f2=fopen("neg.txt","a");
             for(int s=0;s<9;s++){
@@ -274,8 +333,12 @@ int main() {
                 fprintf(f2,"\n");
                 fclose(f2);
                 printf("but i Ml\n :p\n");
-
+        }
+        else if(strcmp(mode,"PVP") == 0 || strcmp(mode,"pvp") == 0 || strcmp(mode,"1") == 0)
+        {
+          printf("Player 1 wins.\n");
+        }
             break;
     }
-    printf("\n\t\t ©yousef(jogo)\n");
+    printf("\n\t\t ©yousef and yahya(yojogo)\n");
 }
