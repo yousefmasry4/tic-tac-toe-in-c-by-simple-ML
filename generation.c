@@ -282,25 +282,29 @@ int main() {
   printf("      2.PVC     \n");
   scanf("%s",mode);
   printf("\n");
-  do
+  while(strcmp(mode,"PVP") != 0 && strcmp(mode,"pvp") != 0 && strcmp(mode,"PVC") != 0 && strcmp(mode,"pvc") != 0 && strcmp(mode,"1") != 0 && strcmp(mode,"2") != 0)
   {
-    if(strcmp(mode,"PVP") == 0 || strcmp(mode,"pvp") == 0 || strcmp(mode,"1") == 0)
-    {
-      printf("Player 1: X, Player 2: O\nPlayer 1 plays (1)st or (2)nd? ");
-      scanf("%d",&player);//player represents here player 1
+      system("cls");
+      printf("Enter your mode:\n");
+      printf("      1.PVP     \n");
+      printf("      2.PVC     \n");
+      scanf("%s",mode);
       printf("\n");
-      turn(player,board,mode);
-      break;
-    }
-    else if(strcmp(mode,"PVC") == 0 || strcmp(mode,"pvc") == 0 || strcmp(mode,"2") == 0)
-    {
-      printf("Computer: O, You: X\nPlay (1)st or (2)nd? ");
-      scanf("%d",&player);//beyda55al enta 3ayez tebda2 el awal walla el computer, player represents here the player.
-      printf("\n");
-      turn(player,board,mode);
-      break;
-      }
-    }while(strcmp(mode,"PVP") != 0 && strcmp(mode,"pvp") != 0 && strcmp(mode,"PVC") != 0 && strcmp(mode,"pvc") != 0 && strcmp(mode,"1") != 0 && strcmp(mode,"2") != 0);
+  }
+  if(strcmp(mode,"PVP") == 0 || strcmp(mode,"pvp") == 0 || strcmp(mode,"1") == 0)
+  {
+    printf("Player 1: X, Player 2: O\nPlayer 1 plays (1)st or (2)nd? ");
+    scanf("%d",&player);//player represents here player 1
+    printf("\n");
+    turn(player,board,mode);
+  }
+  else if(strcmp(mode,"PVC") == 0 || strcmp(mode,"pvc") == 0 || strcmp(mode,"2") == 0)
+  {
+    printf("Computer: O, You: X\nPlay (1)st or (2)nd? ");
+    scanf("%d",&player);//beyda55al enta 3ayez tebda2 el awal walla el computer, player represents here the player.
+    printf("\n");
+    turn(player,board,mode);
+  }
     draw(board);
     draw(board);
     switch(win(board)) {
