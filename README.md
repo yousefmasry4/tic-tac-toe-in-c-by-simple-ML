@@ -12,4 +12,6 @@ tic tac toe in c by simple ML
 
 any comment please send email to :yuosefmasry4@gmail.com
 
+line-- not line ++ :D
+
 ![alt text](https://raw.githubusercontent.com/yousefmasry4/tic-tac-toe-in-c-by-simple-ML/master/Untitled%20Diagram.jpg)
